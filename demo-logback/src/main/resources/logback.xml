@@ -1,0 +1,17 @@
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="com.lianjia.common.log.RequestIdPatternLayout"></layout>
+		<filter class="com.lianjia.common.log.LineLogFilter">
+			<level>DEBUG</level>
+			<excludes>SELECT 1 FROM DUAL</excludes>
+		</filter>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>/home/work/var/log/demo-logback/test.log</file>
+		<layout class="com.lianjia.common.log.RequestIdPatternLayout"></layout>
+	</appender>
+	<root level="info">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

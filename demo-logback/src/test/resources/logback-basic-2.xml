@@ -1,0 +1,18 @@
+<configuration>
+	<timestamp key="second" datePattern="yyyyMMdd'T'HHmmss" />
+	<contextName>${"second"}</contextName>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 没有设置addtivity，默认为true，将此loger的打印信息向上级传递 -->
+	<!-- 没有设置appender，此loger本身不打印任何信息  -->
+	<logger name="logback"/>  
+
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

@@ -1,0 +1,21 @@
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="com.lianjia.common.log.RequestIdPatternLayout"></layout>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>/home/work/var/log/demo-log4jdbc/test.log</file>
+		<layout class="com.lianjia.common.log.RequestIdPatternLayout"></layout>
+	</appender>
+	
+	<logger name="jdbc.sqltiming" additivity="true" level="INFO" />
+	<logger name="jdbc.sqlonly" additivity="true" level="INFO" />
+	<logger name="jdbc.audit" additivity="true" level="INFO" />
+	<logger name="jdbc.resultset" additivity="true" level="INFO" />
+	<logger name="jdbc.resultsettable" additivity="true" level="INFO" />
+	<logger name="jdbc.connection" additivity="true" level="INFO" />
+	
+	<root level="info">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

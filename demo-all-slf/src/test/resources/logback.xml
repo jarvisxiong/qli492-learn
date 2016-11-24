@@ -1,0 +1,18 @@
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level
+				%logger{36}.%M [%file:%line] - %msg%n</pattern>
+		</layout>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>/home/work/var/log/demo-all-slf/test.log</file>
+		<encoder>
+			<pattern>%date [%thread] %level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<root level="info">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT"/>
+	</root>
+</configuration>

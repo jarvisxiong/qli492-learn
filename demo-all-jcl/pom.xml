@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.log.demo</groupId>
+	<artifactId>demo-all-jcl</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>demo-all-jcl</name>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!-- commons-logging的原生全部内容 -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- commons-logging到log4j2的桥梁  -->
+		<!-- <dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+			<version>2.7</version>
+		</dependency> -->
+		<!-- 将对slf4j的调用桥接到jcl -->
+		<!-- 比如遗留系统使用的是jcl+log4j，如上，因为系统功能演进，依赖了其他业务线的库，恰好那个库依赖了slf4j-api -->
+		<!-- <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jcl</artifactId>
+			<version>1.7.5</version>
+		</dependency> -->
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>.</directory>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source />
+					<target />
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

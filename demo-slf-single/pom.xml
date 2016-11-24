@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.log.demo</groupId>
+	<artifactId>demo-slf-single</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>demo-slf-single</name>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- log4j1 -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<!-- log4j2 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.0-beta9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.0-beta9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.10</version>
+		</dependency>
+		<!-- slf4j桥接到log4j1 -->
+		<!-- 使用slf4j的API进行编程，底层想使用log4j1来进行实际的日志输出 -->
+		<!-- slf4j-log4j12实现了slf4j-api，实际上是转向去调用log4j1实现 -->
+		<!-- 比如老系统使用log4j1日志输出，现在想替换用slf4j,达到支持老系统日志的同时可以使用slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<!-- slf4j桥接到log4j2 -->
+		<!-- log4j-slf4j-impl也会和logback-classic、slf4j-log4j、slf4j-jdk14互斥  -->
+		<!-- 如果配置多个，会造成StaticLoggerBinder存在多个，底层不知道具体选择哪个 -->
+		<!-- <dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.0-beta9</version>
+		</dependency> -->
+		<!-- slf4j桥接到jul -->
+		<!-- 如果配置多个，会造成StaticLoggerBinder存在多个，底层不知道具体选择哪个 -->
+		<!-- <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.7.5</version>
+		</dependency> -->
+		<!--桥接 log4j, log4j-over-slf4j与slf4j-log4j12不要同时存在 -->
+		<!--  A->B/B->A 可能会出现stack overflow异常 -->
+		<!-- <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>1.7.10</version>
+		</dependency> -->
+		
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>.</directory>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source />
+					<target />
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

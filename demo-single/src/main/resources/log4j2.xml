@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread][%file:%line] - %msg%n" />
+		</Console>
+		<File name="FILE" fileName="/home/work/var/log/demo-single/test.log">
+			<PatternLayout>
+				<pattern>%d [%t] %p %C - %m%n</pattern>
+			</PatternLayout>
+		</File>
+	</Appenders>
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="FILE" />
+			<appender-ref ref="CONSOLE" />
+		</Root>
+	</Loggers>
+</Configuration>
