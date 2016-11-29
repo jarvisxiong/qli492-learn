@@ -1,0 +1,2 @@
+braveConsumerFilter=com.demo.zipkin.dubbo.filter.BraveConsumerFilter
+braveProviderFilter=com.demo.zipkin.dubbo.filter.BraveProviderFilter
