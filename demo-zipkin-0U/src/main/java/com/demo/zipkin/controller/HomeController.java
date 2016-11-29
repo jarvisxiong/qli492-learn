@@ -15,7 +15,7 @@ public class HomeController {
 
 	private Random random = new Random();
 
-	@RequestMapping("first")
+	@RequestMapping("demo")
 	public String start() throws InterruptedException, IOException {
 		int sleep = random.nextInt(100);
 		TimeUnit.MILLISECONDS.sleep(sleep);
