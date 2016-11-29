@@ -1,0 +1,11 @@
+.project
+*.iml
+.idea
+.settings
+*.DS_Store
+bin
+.classpath
+target
+pom.xml.versionsBackup
+rebel*.xml
+sftp-config.json
