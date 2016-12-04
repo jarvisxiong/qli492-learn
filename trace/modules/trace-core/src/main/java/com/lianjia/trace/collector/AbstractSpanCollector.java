@@ -15,20 +15,19 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import com.lianjia.trace.Span;
 import com.lianjia.trace.handler.SpanCollectorMetricsHandler;
-import com.twitter.zipkin.gen.SpanCodec;
+import com.lianjia.trace.util.SpanCodec;
 
-public abstract class FlushingSpanCollector implements SpanCollector, Flushable, Closeable {
+public abstract class AbstractSpanCollector implements SpanCollector, Flushable, Closeable {
 	private final SpanCollectorMetricsHandler metrics;
 	private final SpanCodec codec;
 	private final BlockingQueue<Span> pending = new LinkedBlockingQueue<Span>(1000);
 	private final Flusher flusher;
 
-	  public FlushingSpanCollector(SpanCodec codec, SpanCollectorMetricsHandler metrics,
-		      int flushInterval) {
-		  this.metrics = metrics;
-			this.flusher = flushInterval > 0 ? new Flusher(this, flushInterval) : null;
-		    this.codec = codec;
-		  }
+	public AbstractSpanCollector(SpanCodec codec, SpanCollectorMetricsHandler metrics, int flushInterval) {
+		this.metrics = metrics;
+		this.flusher = flushInterval > 0 ? new Flusher(this, flushInterval) : null;
+		this.codec = codec;
+	}
 
 	@Override
 	public void collect(Span span) {
@@ -42,7 +41,7 @@ public abstract class FlushingSpanCollector implements SpanCollector, Flushable,
 	public void flush() {
 		if (pending.isEmpty()) {
 			return;
-		} 
+		}
 		System.out.print("");
 		List<Span> drained = new ArrayList<Span>(pending.size());
 		pending.drainTo(drained);
@@ -77,12 +76,12 @@ public abstract class FlushingSpanCollector implements SpanCollector, Flushable,
 		}
 	}
 
-	 protected void reportSpans(List<Span> drained) throws IOException {
-		    byte[] encoded = codec.writeSpans(drained);
-		    sendSpans(encoded);
-		  }
-	 
-	 protected abstract void sendSpans(byte[] encoded) throws IOException;
+	protected void reportSpans(List<Span> drained) throws IOException {
+		byte[] encoded = codec.writeSpans(drained);
+		sendSpans(encoded);
+	}
+
+	protected abstract void sendSpans(byte[] encoded) throws IOException;
 
 	@Override
 	public void close() {

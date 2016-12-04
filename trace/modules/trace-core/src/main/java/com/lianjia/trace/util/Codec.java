@@ -6,7 +6,6 @@ import com.lianjia.trace.Span;
 
 public interface Codec {
 	JsonCodec JSON = new JsonCodec();
-	ThriftCodec THRIFT = new ThriftCodec();
 
 	Span readSpan(byte[] bytes);
 
@@ -15,6 +14,4 @@ public interface Codec {
 	List<Span> readSpans(byte[] bytes);
 
 	byte[] writeSpans(List<Span> value);
-
-	byte[] writeTraces(List<List<Span>> value);
 }

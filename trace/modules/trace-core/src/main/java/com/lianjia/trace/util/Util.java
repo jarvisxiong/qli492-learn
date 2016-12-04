@@ -8,6 +8,12 @@ public final class Util {
 
 	public static final Charset UTF_8 = Charset.forName("UTF-8");
 
+	public static void checkArgument(boolean expression, String errorMessageTemplate, Object... errorMessageArgs) {
+		if (!expression) {
+			throw new IllegalArgumentException(String.format(errorMessageTemplate, errorMessageArgs));
+		}
+	}
+
 	public static <T> T checkNotNull(T reference, String errorMessageTemplate, Object... errorMessageArgs) {
 		if (reference == null) {
 			throw new NullPointerException(format(errorMessageTemplate, errorMessageArgs));
