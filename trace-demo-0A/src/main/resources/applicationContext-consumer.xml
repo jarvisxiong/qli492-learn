@@ -25,6 +25,6 @@
 	
 	<dubbo:reference id="demoService0B" interface="com.demo.service.DemoService0B" version="1.0.1" check="true"/>
 	
-	<dubbo:reference id="demoService0D" interface="com.demo.service.DemoService0D" version="1.0.1" check="true"/>
+	<dubbo:reference id="demoService0C" interface="com.demo.service.DemoService0C" version="1.0.1" check="true"/>
 	
 </beans>

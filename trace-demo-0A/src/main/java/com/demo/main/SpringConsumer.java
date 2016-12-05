@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.demo.service.DemoService0B;
-import com.demo.service.DemoService0D;
+import com.demo.service.DemoService0C;
 
 public class SpringConsumer {
 	protected static Logger logger = LoggerFactory.getLogger(SpringConsumer.class.getName());
@@ -17,8 +17,8 @@ public class SpringConsumer {
 		DemoService0B b0 = context.getBean("demoService0B", DemoService0B.class);
 		result = b0.method0B();
 		
-//		DemoService0D d0 = context.getBean("demoService0D", DemoService0D.class);
-//		result = result + "||" + d0.method0D();
+		DemoService0C d0 = context.getBean("demoService0C", DemoService0C.class);
+		result = result + "||" + d0.method0C();
 		System.out.println(result);
 	}
 }

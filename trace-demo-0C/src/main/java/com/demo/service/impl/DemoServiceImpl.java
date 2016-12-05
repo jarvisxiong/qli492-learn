@@ -6,6 +6,6 @@ public class DemoServiceImpl implements DemoService0C {
 
 	@Override
 	public String method0C() {
-		return "method0B";
+		return "method0C";
 	}
 }
