@@ -13,7 +13,6 @@ import com.demo.zipkin.dubbo.DubboClientNameProvider;
 import com.demo.zipkin.dubbo.DubboSpanNameProvider;
 import com.demo.zipkin.dubbo.support.DefaultClientNameProvider;
 import com.demo.zipkin.dubbo.support.DefaultSpanNameProvider;
-import com.demo.zipkin.util.IPConversion;
 import com.github.kristofa.brave.KeyValueAnnotation;
 import com.github.kristofa.brave.ServerRequestAdapter;
 import com.github.kristofa.brave.ServerTracer;

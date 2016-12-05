@@ -29,4 +29,6 @@
 	<bean id="demoService" class="com.demo.zipkin.service.impl.DemoServiceImpl"></bean>
 	
 	<dubbo:service interface="com.demo.zipkin.service.DemoService0B" ref="demoService" version="1.0.1" />
+	
+	<dubbo:reference id="demoService0C" interface="com.demo.zipkin.service.DemoService0C" version="1.0.1" check="true"/>
 </beans>

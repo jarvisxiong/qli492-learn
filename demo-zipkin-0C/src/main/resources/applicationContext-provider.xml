@@ -18,7 +18,7 @@
 		
 	<aop:aspectj-autoproxy proxy-target-class="true"  expose-proxy="true"></aop:aspectj-autoproxy>
 
-	<dubbo:application name="demo-provider0B-service" />
+	<dubbo:application name="demo-provider0C-service" />
 
 	<!-- 注冊地址 -->
 	<dubbo:registry protocol="zookeeper" address="${zookeeper.address}" />

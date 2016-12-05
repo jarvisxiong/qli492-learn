@@ -1,0 +1,2 @@
+consumerFilter=com.lianjia.trace.filter.ConsumerFilter
+providerFilter=com.lianjia.trace.filter.ProviderFilter

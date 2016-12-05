@@ -14,8 +14,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 
 import com.lianjia.trace.Span;
+import com.lianjia.trace.codec.SpanCodec;
 import com.lianjia.trace.handler.SpanCollectorMetricsHandler;
-import com.lianjia.trace.util.SpanCodec;
 
 public abstract class AbstractSpanCollector implements SpanCollector, Flushable, Closeable {
 	private final SpanCollectorMetricsHandler metrics;

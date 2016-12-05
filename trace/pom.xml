@@ -12,11 +12,13 @@
 	<modules>
 		<module>modules/trace-core</module>
 		<module>modules/trace-client</module>
+		<module>modules/trace-collector</module>
+		<module>modules/trace-mysql</module>
+		<module>modules/trace-demo-0A</module>
+		<module>modules/trace-demo-0B</module>
 		<!-- <module>modules/trace-web</module>
 		<module>modules/trace-manager</module>
-		<module>modules/trace-collector</module>
 		<module>modules/trace-collector-service</module>
-		<module>modules/trace-store</module>
 		<module>modules/trace-manager-db</module> -->
 	</modules>
 
@@ -66,7 +68,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-web</artifactId>
+				<artifactId>trace-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
@@ -81,57 +83,17 @@
 			</dependency>
 			<dependency>
 				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-example</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-interface</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-manager</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-collector-service</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-store-interface</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-hbase</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lianjia.trace</groupId>
 				<artifactId>trace-mysql</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-manager-db</artifactId>
+				<artifactId>trace-demo-0A</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-test-benchmark</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-example-exp1</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.lianjia.trace</groupId>
-				<artifactId>trace-example-exp2</artifactId>
+				<artifactId>trace-demo-0B</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<!-- test -->

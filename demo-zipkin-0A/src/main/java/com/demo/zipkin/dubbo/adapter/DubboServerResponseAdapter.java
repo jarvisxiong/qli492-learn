@@ -1,12 +1,12 @@
 package com.demo.zipkin.dubbo.adapter;
 
-import com.alibaba.dubbo.rpc.Result;
-import com.github.kristofa.brave.KeyValueAnnotation;
-import com.github.kristofa.brave.ServerResponseAdapter;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import com.alibaba.dubbo.rpc.Result;
+import com.github.kristofa.brave.KeyValueAnnotation;
+import com.github.kristofa.brave.ServerResponseAdapter;
 
 public class DubboServerResponseAdapter implements ServerResponseAdapter {
 	private Result rpcResult;

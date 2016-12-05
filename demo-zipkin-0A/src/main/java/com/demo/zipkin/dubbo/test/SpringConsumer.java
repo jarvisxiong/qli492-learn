@@ -13,12 +13,12 @@ public class SpringConsumer {
 	private static ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-consumer.xml", "applicationContext-service-consumer.xml");
 
 	public static void main(String[] args) {
+		String result = "";
 		DemoService0B b0 = context.getBean("demoService0B", DemoService0B.class);
-		String result = b0.method0B();
-		System.out.println(result);
+		result = b0.method0B();
 		
 		DemoService0D d0 = context.getBean("demoService0D", DemoService0D.class);
-		result = d0.method0D();
+		result = result + "||" + d0.method0D();
 		System.out.println(result);
 	}
 }
