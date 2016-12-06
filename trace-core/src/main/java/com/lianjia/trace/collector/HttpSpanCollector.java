@@ -48,38 +48,37 @@ public class HttpSpanCollector extends AbstractSpanCollector {
 
 	@Override
 	protected void sendSpans(byte[] json) throws IOException {
-		// HttpURLConnection connection = (HttpURLConnection) new
-		// URL(url).openConnection();
-		// connection.setConnectTimeout(config.getConnectTimeout());
-		// connection.setReadTimeout(config.getReadTimeout());
-		// connection.setRequestMethod("POST");
-		// connection.addRequestProperty("Content-Type", "application/json");
-		// if (config.isCompressionEnabled()) {
-		// connection.addRequestProperty("Content-Encoding", "gzip");
-		// ByteArrayOutputStream gzipped = new ByteArrayOutputStream();
-		// try (GZIPOutputStream compressor = new GZIPOutputStream(gzipped)) {
-		// compressor.write(json);
-		// }
-		// json = gzipped.toByteArray();
-		// }
-		// connection.setDoOutput(true);
-		// connection.setFixedLengthStreamingMode(json.length);
-		// connection.getOutputStream().write(json);
-		//
-		// try (InputStream in = connection.getInputStream()) {
-		// while (in.read() != -1)
-		// ; // skip
-		// } catch (IOException e) {
-		// try (InputStream err = connection.getErrorStream()) {
-		// if (err != null) { // possible, if the connection was dropped
-		// while (err.read() != -1)
-		// ; // skip
-		// }
-		// }
-		// throw e;
-		// }
-		TypeReference<List<Span>> type = new TypeReference<List<Span>>() {};
-		List<Span> spans = JsonUtil.byte2Object(json, type);
-		logger.info(JSON.toJSONString(spans, true));
+		HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+		connection.setConnectTimeout(config.getConnectTimeout());
+		connection.setReadTimeout(config.getReadTimeout());
+		connection.setRequestMethod("POST");
+		connection.addRequestProperty("Content-Type", "application/json");
+		if (config.isCompressionEnabled()) {
+			connection.addRequestProperty("Content-Encoding", "gzip");
+			ByteArrayOutputStream gzipped = new ByteArrayOutputStream();
+			try (GZIPOutputStream compressor = new GZIPOutputStream(gzipped)) {
+				compressor.write(json);
+			}
+			json = gzipped.toByteArray();
+		}
+		connection.setDoOutput(true);
+		connection.setFixedLengthStreamingMode(json.length);
+		connection.getOutputStream().write(json);
+
+		try (InputStream in = connection.getInputStream()) {
+			while (in.read() != -1)
+				; // skip
+		} catch (IOException e) {
+			try (InputStream err = connection.getErrorStream()) {
+				if (err != null) { // possible, if the connection was dropped
+					while (err.read() != -1)
+						; // skip
+				}
+			}
+			throw e;
+		}
+//		TypeReference<List<Span>> type = new TypeReference<List<Span>>() {};
+//		List<Span> spans = JsonUtil.byte2Object(json, type);
+//		logger.info(JSON.toJSONString(spans, true));
 	}
 }

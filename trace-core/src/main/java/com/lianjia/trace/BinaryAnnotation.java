@@ -10,15 +10,15 @@ public class BinaryAnnotation implements Serializable {
 	private String value;
 	private String type;
 	private Integer duration;
-	private Endpoint host;
+	private Endpoint endpoint;
 
 	public BinaryAnnotation() {
 	}
 	
-	public BinaryAnnotation(String key, String value, Endpoint host) {
+	public BinaryAnnotation(String key, String value, Endpoint endpoint) {
 		this.key = Util.checkNotBlank(key, "Null or blank key");
 		this.value = Util.checkNotNull(value, "Null value");
-		this.host = host;
+		this.endpoint = endpoint;
 	}
 
 	public static BinaryAnnotation create(String key, Endpoint endpoint) {
@@ -29,18 +29,12 @@ public class BinaryAnnotation implements Serializable {
 		return new BinaryAnnotation(key, value, endpoint);
 	}
 
-	public Endpoint getHost() {
-		return host;
+	public Endpoint getEndpoint() {
+		return endpoint;
 	}
 
-	public void setHost(Endpoint endpoint) {
-		this.host = endpoint;
-	}
-
-	@Override
-	public String toString() {
-		return "BinaryAnnotation{" + "key='" + key + '\'' + ", value=" + value + ", type='" + type + '\''
-				+ ", duration=" + duration + ", endpoint=" + host + '}';
+	public void setEndpoint(Endpoint endpoint) {
+		this.endpoint = endpoint;
 	}
 
 	public String getKey() {

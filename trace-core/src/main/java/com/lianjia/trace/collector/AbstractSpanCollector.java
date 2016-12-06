@@ -42,15 +42,14 @@ public abstract class AbstractSpanCollector implements SpanCollector, Flushable,
 		if (pending.isEmpty()) {
 			return;
 		}
-		System.out.print("");
-		List<Span> drained = new ArrayList<Span>(pending.size());
-		pending.drainTo(drained);
-		if (drained.isEmpty())
+		List<Span> list = new ArrayList<Span>(pending.size());
+		pending.drainTo(list);
+		if (list.isEmpty()) {
 			return;
-
-		int spanCount = drained.size();
+		}
+		int spanCount = list.size();
 		try {
-			reportSpans(drained);
+			reportSpans(list);
 		} catch (IOException e) {
 			metrics.incrementDroppedSpans(spanCount);
 		} catch (RuntimeException e) {
@@ -85,8 +84,9 @@ public abstract class AbstractSpanCollector implements SpanCollector, Flushable,
 
 	@Override
 	public void close() {
-		if (flusher != null)
+		if (flusher != null) {
 			flusher.scheduler.shutdown();
+		}
 		int dropped = pending.drainTo(new LinkedList<Span>());
 		metrics.incrementDroppedSpans(dropped);
 	}
