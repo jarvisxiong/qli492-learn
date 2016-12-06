@@ -5,19 +5,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
-import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSON;
-import com.lianjia.trace.Span;
 import com.lianjia.trace.codec.SpanCodec;
 import com.lianjia.trace.handler.SpanCollectorDefaultMetricsHander;
 import com.lianjia.trace.handler.SpanCollectorMetricsHandler;
-import com.lianjia.trace.util.JsonUtil;
 
 public class HttpSpanCollector extends AbstractSpanCollector {
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -66,13 +61,15 @@ public class HttpSpanCollector extends AbstractSpanCollector {
 		connection.getOutputStream().write(json);
 
 		try (InputStream in = connection.getInputStream()) {
-			while (in.read() != -1)
-				; // skip
+			while (in.read() != -1) {
+				; // do nothing
+			}
 		} catch (IOException e) {
 			try (InputStream err = connection.getErrorStream()) {
 				if (err != null) { // possible, if the connection was dropped
-					while (err.read() != -1)
-						; // skip
+					while (err.read() != -1) {
+						; // do nothing
+					}
 				}
 			}
 			throw e;

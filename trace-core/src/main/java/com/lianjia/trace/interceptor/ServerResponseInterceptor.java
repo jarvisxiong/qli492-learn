@@ -18,8 +18,6 @@ public class ServerResponseInterceptor {
 	}
 
 	public void handle(ServerResponseAdapter adapter) {
-		// We can submit this in any case. When server state is not set or
-		// we should not trace this request nothing will happen.
 		LOGGER.fine("Sending server send.");
 		try {
 			for (KeyValueAnnotation annotation : adapter.responseAnnotations()) {

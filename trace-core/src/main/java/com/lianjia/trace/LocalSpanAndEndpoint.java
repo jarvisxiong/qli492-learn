@@ -14,17 +14,17 @@ public class LocalSpanAndEndpoint implements SpanAndEndpoint {
 		this.state = state;
 	}
 
-	ServerClientAndLocalSpanState state() {
+	ServerClientAndLocalSpanState getState() {
 		return state;
 	}
 
 	@Override
 	public Span span() {
-		return state().getCurrentLocalSpan();
+		return getState().getCurrentLocalSpan();
 	}
 
 	@Override
 	public Endpoint endpoint() {
-		return state().endpoint();
+		return getState().endpoint();
 	}
 }

@@ -21,38 +21,6 @@ public class Endpoint implements Serializable {
 		return new Endpoint(ip, port, serviceName);
 	}
 
-	@Override
-	public String toString() {
-		return "Endpoint{" + "ip='" + ip + '\'' + ", port=" + port + ", serviceName='" + serviceName + '\'' + '}';
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (!(o instanceof Endpoint))
-			return false;
-
-		Endpoint endpoint = (Endpoint) o;
-
-		if (!ip.equals(endpoint.ip))
-			return false;
-		if (!port.equals(endpoint.port))
-			return false;
-		if (!serviceName.equals(endpoint.serviceName))
-			return false;
-
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		int result = ip.hashCode();
-		result = 31 * result + port.hashCode();
-		result = 31 * result + serviceName.hashCode();
-		return result;
-	}
-
 	public String getIp() {
 		return ip;
 	}

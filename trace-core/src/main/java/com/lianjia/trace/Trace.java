@@ -27,7 +27,6 @@ public class Trace {
 		private final ServerClientAndLocalSpanState state;
 		private SpanCollector spanCollector;
 		private SpanIdGenerator spanIdGenerator = new RandomSpanIdGenerator();
-		// default added so callers don't need to check null.
 		private Sampler sampler = Sampler.create(1.0f);
 
 		public Creator() {

@@ -3,7 +3,6 @@ package com.lianjia.trace;
 import com.lianjia.trace.util.Util;
 
 public final class ThreadLocalServerClientAndLocalSpanState implements ServerClientAndLocalSpanState {
-
 	private final static ThreadLocal<Span> currentServerSpan = new ThreadLocal<Span>();
 	private final static ThreadLocal<Span> currentClientSpan = new ThreadLocal<Span>();
 	private final static ThreadLocal<Span> currentLocalSpan = new ThreadLocal<Span>();
