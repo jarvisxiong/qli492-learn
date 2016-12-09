@@ -42,8 +42,8 @@ public class ServerTracer extends AnnotationSubmitter {
 		getSpanAndEndpoint().state().setCurrentServerSpan(null);
 	}
 
-	public void setStateCurrentTrace(String traceId, String spanId, String parentSpanId, String name) {
-		getSpanAndEndpoint().state().setCurrentServerSpan(Span.create(traceId, spanId, parentSpanId, name));
+	public void setStateCurrentTrace(String traceId, String spanId, String parentSpanId, String numPath, String name) {
+		getSpanAndEndpoint().state().setCurrentServerSpan(Span.create(traceId, spanId, parentSpanId, numPath, name));
 	}
 
 	public void setStateNoTracing() {
@@ -51,12 +51,13 @@ public class ServerTracer extends AnnotationSubmitter {
 	}
 
 	public void setStateUnknown(String spanName) {
-		String newTraceId = getRandomSpanIdGenerator().getSpanId();
+		String newTraceId = getSpanIdGenerator().getSpanId(null);
+		String newPanNumPath = getSpanIdGenerator().getSpanNumPath("0", null);
 		if (!getTraceSampler().isSampled(newTraceId)) {
 			getSpanAndEndpoint().state().setCurrentServerSpan(null);
 			return;
 		}
-		getSpanAndEndpoint().state().setCurrentServerSpan(Span.create(newTraceId, newTraceId, null, spanName));
+		getSpanAndEndpoint().state().setCurrentServerSpan(Span.create(newTraceId, newTraceId, null, newPanNumPath, spanName));
 	}
 
 	public void setServerReceived() {
@@ -79,7 +80,7 @@ public class ServerTracer extends AnnotationSubmitter {
 		return spanAndEndpoint;
 	}
 
-	public SpanIdGenerator getRandomSpanIdGenerator() {
+	public SpanIdGenerator getSpanIdGenerator() {
 		return spanIdGenerator;
 	}
 

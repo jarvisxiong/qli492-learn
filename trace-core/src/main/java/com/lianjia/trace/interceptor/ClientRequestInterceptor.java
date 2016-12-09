@@ -15,7 +15,7 @@ public class ClientRequestInterceptor {
 	}
 
 	public void handle(ClientRequestAdapter adapter) {
-		Span span = clientTracer.startNewSpan(adapter.getTraceId(), adapter.getSpanName(), adapter.isSampled());
+		Span span = clientTracer.startNewSpan(adapter.getTraceId(), adapter.getNumPath(), adapter.getSpanName(), adapter.isSampled());
 		if (span == null) {
 			adapter.addSpanToRequest(null);
 		} else {

@@ -11,7 +11,10 @@ import com.lianjia.trace.KeyValueAnnotation;
 import com.lianjia.trace.Span;
 import com.lianjia.trace.TraceData;
 import com.lianjia.trace.adapter.ServerRequestAdapter;
+import com.lianjia.trace.constants.CoreConstants;
+import com.lianjia.trace.constants.UrlConstants;
 import com.lianjia.trace.tracer.ServerTracer;
+import com.lianjia.trace.util.TraceIdAndNodePathHolder;
 
 @SuppressWarnings("unused")
 public class DubboServerRequestAdapter implements ServerRequestAdapter {
@@ -24,7 +27,13 @@ public class DubboServerRequestAdapter implements ServerRequestAdapter {
 		this.invocation = invocation;
 		this.serverTracer = serverTracer;
 	}
-	
+
+	@Override
+	public void setTraceIdAndNodePath(String serviceName) {
+		String traceId = invocation.getAttachment(UrlConstants.LJ_TRACEID);
+		String nodePath = invocation.getAttachment(UrlConstants.LJ_NODEPATH);
+		TraceIdAndNodePathHolder.setTraceIdAndNodePath(traceId, nodePath + "." + serviceName);
+	}
 
 	@Override
 	public String getSpanName() {
@@ -36,15 +45,16 @@ public class DubboServerRequestAdapter implements ServerRequestAdapter {
 
 	@Override
 	public TraceData getTraceData() {
-		String sampled = invocation.getAttachment("sampled");
+		String sampled = invocation.getAttachment(UrlConstants.LJ_SAMPLED);
 		if (sampled != null && sampled.equals("0")) {
 			return TraceData.create(false);
 		} else {
-			final String parentId = invocation.getAttachment("parentId");
-			final String spanId = invocation.getAttachment("spanId");
-			final String traceId = invocation.getAttachment("traceId");
+			final String parentId = invocation.getAttachment(UrlConstants.LJ_PARENTSPANID);
+			final String spanId = invocation.getAttachment(UrlConstants.LJ_SPANID);
+			final String traceId = invocation.getAttachment(UrlConstants.LJ_TRACEID);
+			final String numPath = invocation.getAttachment(UrlConstants.LJ_NUMPATH);
 			if (traceId != null && spanId != null) {
-				Span span = Span.create(traceId, spanId, parentId, getSpanName());
+				Span span = Span.create(traceId, spanId, parentId, numPath, getSpanName());
 				return TraceData.create(span, true);
 			}
 		}
@@ -55,13 +65,10 @@ public class DubboServerRequestAdapter implements ServerRequestAdapter {
 	public Collection<KeyValueAnnotation> requestAnnotations() {
 		String ipAddr = RpcContext.getContext().getUrl().getIp();
 		InetSocketAddress inetSocketAddress = RpcContext.getContext().getRemoteAddress();
-		final String clientName = RpcContext.getContext().getAttachment("clientName");
-		// 标记服务器收到,记录客户端地址，服务名，生成ca节点
-		// serverTracer.setServerReceived(IPConversion.convertToInt(ipAddr),
-		// inetSocketAddress.getPort(), clientName);
+		final String clientName = RpcContext.getContext().getAttachment(UrlConstants.LJ_CLIENTNAME);
 		InetSocketAddress socketAddress = RpcContext.getContext().getLocalAddress();
 		if (socketAddress != null) {
-			KeyValueAnnotation remoteAddrAnnotation = KeyValueAnnotation.create("address", socketAddress.toString());
+			KeyValueAnnotation remoteAddrAnnotation = KeyValueAnnotation.create(CoreConstants.ADDRESS, socketAddress.toString());
 			return Collections.singleton(remoteAddrAnnotation);
 		} else {
 			return Collections.emptyList();

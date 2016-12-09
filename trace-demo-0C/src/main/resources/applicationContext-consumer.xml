@@ -18,13 +18,13 @@
 		
 	<aop:aspectj-autoproxy proxy-target-class="true"  expose-proxy="true"></aop:aspectj-autoproxy>
 
-	<dubbo:application name="demo-demo-0A" />
+	<dubbo:application name="demo-demo-0C" />
 	<dubbo:registry protocol="zookeeper" address="${zookeeper.address}" />
 
 	<dubbo:consumer timeout="120000" />
 	
-	<dubbo:reference id="demoService0B" interface="com.demo.service.DemoService0B" version="1.0.1" check="true"/>
-	
-	<dubbo:reference id="demoService0D" interface="com.demo.service.DemoService0D" version="1.0.1" check="true"/>
+	<dubbo:reference id="semainFacade"
+		interface="com.lianjia.semain.api.service.SemainFacade" version="1.0.1"
+		check="false" />
 	
 </beans>

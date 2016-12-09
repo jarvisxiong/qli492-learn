@@ -10,27 +10,29 @@ public class Span implements Serializable {
 	private String id;
 	private String name;
 	private String parentId;
+	private String numPath;
 	private String serviceId;
 	private Long timestamp;
 	private List<Annotation> annotations;
 	private List<BinaryAnnotation> binaryAnnotations;
 	private Long duration;
 
-	public static Span create(String traceId, String id) {
-		return new Span(traceId, id, null, null);
+	public static Span create(String traceId, String id, String numPath) {
+		return new Span(traceId, id, null, numPath, null);
 	}
 
-	public static Span create(String traceId, String id, String parentId, String name) {
-		return new Span(traceId, id, parentId, name);
+	public static Span create(String traceId, String id, String parentId, String numPath, String name) {
+		return new Span(traceId, id, parentId, numPath, name);
 	}
 	
 	public Span() {
 	}
 
-	public Span(String traceId, String id, String parentId, String name) {
+	public Span(String traceId, String id, String parentId, String numPath, String name) {
 		this.traceId = (traceId != null ? traceId : id);
 		this.id = id;
 		this.parentId = parentId;
+		this.numPath = numPath;
 		this.name = name;
 	}
 
@@ -50,7 +52,7 @@ public class Span implements Serializable {
 		return this;
 	}
 
-	public final boolean isRootSpan() {
+	public boolean isRootSpan() {
 		return parentId == null;
 	}
 
@@ -76,6 +78,14 @@ public class Span implements Serializable {
 
 	public void setParentId(String parentId) {
 		this.parentId = parentId;
+	}
+
+	public String getNumPath() {
+		return numPath;
+	}
+
+	public void setNumPath(String numPath) {
+		this.numPath = numPath;
 	}
 
 	public String getName() {

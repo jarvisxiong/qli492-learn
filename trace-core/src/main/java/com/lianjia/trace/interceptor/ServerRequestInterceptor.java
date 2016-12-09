@@ -16,6 +16,7 @@ public class ServerRequestInterceptor {
 
 	public void handle(ServerRequestAdapter adapter) {
 		serverTracer.clearCurrentSpan();
+		adapter.setTraceIdAndNodePath(serverTracer.getSpanAndEndpoint().endpoint().getServiceName());
 		final TraceData traceData = adapter.getTraceData();
 		Boolean sample = traceData.getSample();
 		if (sample != null && Boolean.FALSE.equals(sample)) {
@@ -23,7 +24,7 @@ public class ServerRequestInterceptor {
 		} else {
 			if (traceData.getSpan() != null) {
 				Span span = traceData.getSpan();
-				serverTracer.setStateCurrentTrace(span.getTraceId(), span.getId(), span.getParentId(), span.getName());
+				serverTracer.setStateCurrentTrace(span.getTraceId(), span.getId(), span.getParentId(), span.getNumPath(), span.getName());
 			} else {
 				serverTracer.setStateUnknown(adapter.getSpanName());
 			}

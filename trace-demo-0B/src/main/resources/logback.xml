@@ -1,0 +1,13 @@
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="com.lianjia.trace.layout.TraceIdPatternLayout"></layout>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>/home/work/var/log/trace-demo-0B/test.log</file>
+		<layout class="com.lianjia.trace.layout.TraceIdPatternLayout"></layout>
+	</appender>
+	<root level="info">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

@@ -1,4 +1,4 @@
-package com.lianjia.common.log;
+package com.lianjia.trace.util;
 
 public class MDCHolder {
 
@@ -21,5 +21,10 @@ public class MDCHolder {
 	
 	public static void updateLastTime() {
 		lastTime.set(System.currentTimeMillis());
+	}
+
+	public static void clear() {
+		time.remove();
+		lastTime.remove();
 	}
 }

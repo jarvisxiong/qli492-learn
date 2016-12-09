@@ -4,10 +4,6 @@ import java.io.Serializable;
 
 public class Annotation implements Serializable {
 	private static final long serialVersionUID = -1L;
-	public static final String CLIENT_SEND = "cs";
-	public static final String CLIENT_RECEIVE = "cr";
-	public static final String SERVER_SEND = "ss";
-	public static final String SERVER_RECEIVE = "sr";
 	private Long timestamp;
 	private String value;
 	private Endpoint endpoint;

@@ -4,6 +4,7 @@ import java.net.InetSocketAddress;
 import java.util.Collection;
 import java.util.Collections;
 
+import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.rpc.Invocation;
 import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.RpcContext;
@@ -11,7 +12,8 @@ import com.lianjia.trace.Endpoint;
 import com.lianjia.trace.KeyValueAnnotation;
 import com.lianjia.trace.Span;
 import com.lianjia.trace.adapter.ClientRequestAdapter;
-import com.lianjia.trace.constants.CoreConstants;
+import com.lianjia.trace.constants.UrlConstants;
+import com.lianjia.trace.util.TraceIdAndNodePathHolder;
 
 @SuppressWarnings("unused")
 public class DubboClientRequestAdapter implements ClientRequestAdapter {
@@ -25,7 +27,12 @@ public class DubboClientRequestAdapter implements ClientRequestAdapter {
 
 	@Override
 	public String getTraceId() {
-		return RpcContext.getContext().getAttachment(CoreConstants.LIANJIA_TRACEID);
+		return TraceIdAndNodePathHolder.getTraceId();
+	}
+	
+	@Override
+	public String getNumPath() {
+		return RpcContext.getContext().getAttachment(UrlConstants.LJ_NUMPATH);
 	}
 
 	@Override
@@ -37,20 +44,23 @@ public class DubboClientRequestAdapter implements ClientRequestAdapter {
 
 	@Override
 	public boolean isSampled() {
-		return "1".equals(RpcContext.getContext().getAttachment(CoreConstants.LIANJIA_SAMPLED)) ? true : false;
+		return "1".equals(RpcContext.getContext().getAttachment(UrlConstants.LJ_SAMPLED)) ? true : false;
 	}
 
 	@Override
 	public void addSpanToRequest(Span span) {
-		String application = RpcContext.getContext().getUrl().getParameter("application");
-		RpcContext.getContext().setAttachment("clientName", application);
+		String application = RpcContext.getContext().getUrl().getParameter(Constants.APPLICATION_KEY);
+		String nodePath = TraceIdAndNodePathHolder.getNodePath();
+		RpcContext.getContext().setAttachment(UrlConstants.LJ_CLIENTNAME, application);
+		RpcContext.getContext().setAttachment(UrlConstants.LJ_NODEPATH, nodePath);
 		if (span == null) {
-			RpcContext.getContext().setAttachment("sampled", "0");
+			RpcContext.getContext().setAttachment(UrlConstants.LJ_SAMPLED, "0");
 		} else {
-			RpcContext.getContext().setAttachment("traceId", span.getTraceId());
-			RpcContext.getContext().setAttachment("spanId", span.getId());
+			RpcContext.getContext().setAttachment(UrlConstants.LJ_TRACEID, span.getTraceId());
+			RpcContext.getContext().setAttachment(UrlConstants.LJ_SPANID, span.getId());
+			RpcContext.getContext().setAttachment(UrlConstants.LJ_NUMPATH, span.getNumPath());
 			if (!span.isRootSpan()) {
-				RpcContext.getContext().setAttachment("parentId", span.getParentId());
+				RpcContext.getContext().setAttachment(UrlConstants.LJ_PARENTSPANID, span.getParentId());
 			}
 		}
 	}

@@ -9,7 +9,7 @@ import com.lianjia.trace.util.Util;
 
 public class ServerResponseInterceptor {
 
-	private final static Logger LOGGER = Logger.getLogger(ServerResponseInterceptor.class.getName());
+	private final static Logger logger = Logger.getLogger(ServerResponseInterceptor.class.getName());
 
 	private final ServerTracer serverTracer;
 
@@ -18,7 +18,7 @@ public class ServerResponseInterceptor {
 	}
 
 	public void handle(ServerResponseAdapter adapter) {
-		LOGGER.fine("Sending server send.");
+		logger.fine("Sending server send.");
 		try {
 			for (KeyValueAnnotation annotation : adapter.responseAnnotations()) {
 				serverTracer.submitBinaryAnnotation(annotation.getKey(), annotation.getValue());

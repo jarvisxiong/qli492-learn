@@ -68,6 +68,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- 首页 -->
+		<dependency>
+		  <groupId>com.lianjia.semain</groupId>
+		  <artifactId>semain-api</artifactId>
+		  <version>1.8.0-2e06edc3</version>
+		</dependency>
 		<dependency>
 			<groupId>com.lianjia.trace</groupId>
 			<artifactId>trace-core</artifactId>

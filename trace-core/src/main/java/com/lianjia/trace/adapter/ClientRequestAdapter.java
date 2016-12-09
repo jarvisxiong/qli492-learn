@@ -9,7 +9,9 @@ import com.lianjia.trace.Span;
 public interface ClientRequestAdapter {
 	
 	String getTraceId();
-
+	
+	String getNumPath();
+	
 	String getSpanName();
 	
 	boolean isSampled();

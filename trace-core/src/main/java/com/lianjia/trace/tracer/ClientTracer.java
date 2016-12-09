@@ -53,14 +53,14 @@ public class ClientTracer extends AnnotationSubmitter {
 		}
 	}
 
-	public Span startNewSpan(String traceId, String spanName, boolean isSampled) {
+	public Span startNewSpan(String traceId, String numPath, String spanName, boolean isSampled) {
 		if (isSampled) {
-			Span newSpan = getNewSpan(traceId, spanName);
+			Span newSpan = getNewSpan(traceId, numPath, spanName);
 			newSpan.setName(spanName);
 			getSpanAndEndpoint().getState().setCurrentClientSpan(newSpan);
 			return newSpan;
 		}
-		Span newSpan = getNewSpan(traceId, spanName);
+		Span newSpan = getNewSpan(traceId, numPath, spanName);
 		if (!getTraceSampler().isSampled(newSpan.getTraceId())) {
 			getSpanAndEndpoint().getState().setCurrentClientSpan(null);
 			return null;
@@ -69,7 +69,7 @@ public class ClientTracer extends AnnotationSubmitter {
 		return newSpan;
 	}
 
-	private Span getNewSpan(String traceId, String spanName) {
+	private Span getNewSpan(String traceId, String numPath, String spanName) {
 		Span parentSpan = getSpanAndEndpoint().getState().getCurrentLocalSpan();
 		if (parentSpan == null) {
 			Span serverSpan = getSpanAndEndpoint().getState().getCurrentServerSpan();
@@ -77,18 +77,20 @@ public class ClientTracer extends AnnotationSubmitter {
 				parentSpan = serverSpan;
 			}
 		}
-		String newSpanId = getSpanIdGenerator().getSpanId();
+		String newSpanId = getSpanIdGenerator().getSpanId(traceId);
 		if (parentSpan == null) {
-			return Span.create(traceId, newSpanId, null, spanName);
+			String newPanNumPath = getSpanIdGenerator().getSpanNumPath(traceId, null);
+			return Span.create(traceId, newSpanId, null, newPanNumPath, spanName);
 		}
-		return Span.create(parentSpan.getTraceId(), newSpanId, parentSpan.getId(), spanName);
+		String newPanNumPath = getSpanIdGenerator().getSpanNumPath(traceId, numPath);
+		return Span.create(parentSpan.getTraceId(), newSpanId, parentSpan.getId(), newPanNumPath, spanName);
 	}
 
 	@Override
 	public ClientSpanAndEndpoint getSpanAndEndpoint() {
 		return spanAndEndpoint;
 	}
-	
+
 	public SpanIdGenerator getSpanIdGenerator() {
 		return spanIdGenerator;
 	}
